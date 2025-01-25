@@ -1,0 +1,71 @@
+{% load static %}
+<html>
+<head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <style>
+        /* Set a background image for the entire page */
+        body {
+            background-image: url("{% static 'images/background1.jpg' %}");  /* Make sure to put the correct path to your image in the 'static/images' folder */
+            background-size: cover;  /* Cover the entire screen */
+            background-position: center;  /* Center the background image */
+            background-attachment: fixed;  /* Keep the background fixed as you scroll */
+            height: 100vh; /* Full height */
+            margin: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Style for the container where the form will be */
+        .container {
+            text-align: center;
+            padding: 30px;
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.377); /* Semi-transparent background */
+            color: rgb(255, 249, 249);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px; /* Ensures the content box doesn't grow too wide */
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            margin-top: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        /* Style for the Sign Up link */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Create a New Account</h2>
+        <br>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- This renders the form fields for username, password, etc. -->
+            <button type="submit" class="btn btn-success">Sign Up</button>
+        </form>
+        <br>
+        <p>Already have an account? <a href="{% url 'login' %}" style="color:rgb(0, 236, 51);">Login</a></p>
+    </div>
+</body>
+</html>

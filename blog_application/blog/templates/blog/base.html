@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ BLOG_SITE_NAME }}</title>
+    <!-- W3.CSS and Bootstrap -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-amber.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+    <style>
+        body {
+            font-family: "Roboto", sans-serif;
+            background-image: url("{% static 'images/3.jpg' %}");  
+            background-size: cover;
+            color: #f5f1f1;
+        }
+
+        .page-header {
+            padding: 40px; /* Increased padding for a larger header */
+            text-align: center;
+            background-color: #00098b; /* Keep original background color */
+            color: #ce1cb09d; /* Keep the original text color */
+            border-radius: 8px; /* Slight rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+            font-family: 'Arial', sans-serif; /* Modern, clean font for readability */
+            margin-top: 20px; /* Space above the header */
+            margin-bottom: 20px; /* Space below the header */
+            transition: all 0.3s ease; /* Smooth transitions on hover */
+        }
+
+        .page-header:hover {
+            background-color: #c506b5; /* Background color change on hover */
+            color: #10009c; /* Text color change on hover */
+        }
+
+        .page-header h1 {
+            font-size: 36px; /* Larger title text */
+            margin-bottom: 10px; /* Spacing below the title */
+        }
+
+        .page-header h2 {
+            font-size: 24px; /* Slightly smaller subtitle */
+            font-weight: normal;
+            margin-top: 5px; /* Small gap above the subtitle */
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        .content {
+            background-image: url("{% static 'images/3.jpg' %}");  
+            border-radius: 8px; /* Rounded corners for a smoother design */
+            padding: 30px; /* Adds padding around the content */
+            box-shadow: 0 4px 12px rgba(116, 108, 165, 0.1); /* Subtle shadow for depth */
+            margin-top: 30px; /* Space above the content section */
+            margin-bottom: 30px; /* Space below the content section */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            border-radius: 8px; /* Rounded card corners */
+            overflow: hidden; /* Ensure no content sticks out */
+            border: 1px solid #b11818; /* Soft border around the card */
+            margin-bottom: 20px; /* Space below the card */
+        }
+
+        .card-body {
+            background-color: #333;  /* White background inside the card for contrast */
+            padding: 20px; /* Padding inside the card */
+            font-family: 'Roboto', sans-serif; /* Use a clean, modern font */
+        }
+
+        .card h2 {
+            font-size: 28px;
+            color: #1402b4; /* Title color */
+            font-weight: bold;
+            margin-bottom: 20px; /* Add some space below the title */
+        }
+
+        .card p {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.6; /* Spacing for better readability */
+            color: #ffffff; /* Dark gray text for content */
+        }
+
+        h2 {
+            text-align: center;
+            text-decoration: #811919;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+        <div class="container">
+            <a class="navbar-brand" href="/">Private Trading Blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'user_posts' %}">My Posts</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'post_new' %}">+ New Post</a></li>
+                        <li class="nav-item">
+                            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="page-header">
+        <h1>Kagiso Mashiloane Blog</h1>
+        <h2>Discover Amazing Places and Thoughts</h2>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content container mt-5">
+        <!-- Back Button and Forward Button Container -->
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="{% url 'post_list' %}" class="btn btn-secondary" style="margin-right: 15px;">
+                ← Back 
+            </a>
+            <h2 class="mb-0">Private Trading Post</h2>
+            <!-- Update the forward button -->
+<a href="javascript:void(0)" class="btn btn-secondary" style="margin-left: 15px;" onclick="goForward()">
+    Forward →
+</a>
+
+<script>
+    function goForward() {
+        // Check if there is a previous page in the browser history
+        if (document.referrer) {
+            // If the user came from another page, go back to that page
+            window.location.href = document.referrer;
+        } else {
+            // If there's no referrer (e.g., user directly opened the page), redirect to a fallback page
+            window.location.href = "{% url 'post_list' %}";
+        }
+    }
+</script>
+            
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                {% block content %}
+                <!-- Add your blog content dynamically -->
+                {% endblock %}
+            </div>
+        </div>
+    </main>
+    
+    
+    
+    
+
+    <!-- Footer -->
+    <footer class="py-3 bg-dark text-light">
+        <div class="text-center">
+            <!-- Buttons to toggle the sections -->
+            <a href="#aboutSection" class="text-white mx-2" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="aboutSection">About</a> |
+            <a href="#contactSection" class="text-white mx-2" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="contactSection">Contact</a> |
+            <a href="#policySection" class="text-white mx-2" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="policySection">Policy</a>
+        </div>
+        <p class="text-center m-0">&copy; {{ current_year }}</p>
+    
+        <!-- Collapsible sections -->
+        <div class="p-3">
+            <div id="aboutSection" class="collapse">
+                <h5>About Private Trading</h5>
+                <p>
+                    Private Trading is a forward-thinking company committed to delivering exceptional services
+                    and solutions across diverse industries. We focus on innovation, quality, and customer satisfaction,
+                    making us a trusted partner for businesses looking for tailored and effective solutions.
+                </p>
+            </div>
+    
+            <div id="contactSection" class="collapse">
+                <h5>Contact Details</h5>
+                <p>Email: <a href="mailto:kagiso.s.mashiloane@gmail.com" class="text-white">kagiso.s.mashiloane@gmail.com</a></p>
+                <p>Phone: <a href="tel:+27715409892" class="text-white">+27 71 540 9892</a></p>
+                <p>Website: <a href="http://www.privatetradingpty.co.za" class="text-white">www.privatetradingpty.co.za</a></p>
+            </div>
+    
+            <div id="policySection" class="collapse">
+                <h5>Policy</h5>
+                <p>
+                    Private Trading upholds ethical business practices, client satisfaction, and a commitment to innovation.
+                    We prioritize data security, sustainability, and fostering a positive workplace environment.
+                    For more details, visit our policy page.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap JS (for collapse functionality) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    
+    
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="post-container">
+    {% if post.image %}
+        <!-- Post Image with Edit and Delete Buttons -->
+        <div>
+            <br>
+            <br>
+            <br>
+            <img src="{{ post.image.url }}" alt="Image for {{ post.title }}" class="post-image" width="50%" height="100%">
+            {% if request.user == post.author %}
+                <div class="post-buttons">
+                    <br>
+                    <a href="{% url 'post_edit' pk=post.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{% url 'post_delete' pk=post.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+    <div style="position: absolute; top: 0; right: 50px; text-align: right; left: 20px;">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        {% if post.Article_Title %}
+            <h2>{{ post.Article_Title }}</h2>
+        {% endif %}
+        
+        {% if post.Article_Text %}
+        <!-- Resized Box for Article Text -->
+        <div style="border: 1px solid #000; padding: 15px; margin-top: 30px; width: 45%; max-width: 550px; height: 300px; overflow: auto; float: right;left: 10px;">
+            <p>{{ post.Article_Text }}</p>
+        </div>
+    {% endif %}
+    
+    </div>
+    
+    
+</div>
+
+<hr>
+
+<!-- Comments Section -->
+<h2>Comments</h2>
+<div class="comments">
+    {% for comment in post.comments.all %}
+        <div class="comment">
+            <strong>{{ comment.author.username }}</strong>:<br>
+            {{ comment.content }}<br>
+            <small>{{ comment.created_at }}</small><br>
+            {% if comment.author == request.user %}
+                <a class="btn btn-sm btn-warning" href="{% url 'edit_comment' comment.id %}">Edit</a>
+                <a class="btn btn-sm btn-danger" href="{% url 'delete_comment' comment.id %}">Delete</a>
+            {% endif %}
+        </div>
+        <hr>
+    {% empty %}
+        <p>No comments yet. Be the first to comment!</p>
+    {% endfor %}
+</div>
+
+<!-- Add Comment Form -->
+{% if request.user.is_authenticated %}
+    <h3>Add a Comment</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Post Comment</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to leave a comment.</p>
+{% endif %}
+{% endblock %}
+
+<style>
+    .post-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .post-image {
+        max-width: 300px;
+        height: auto;
+        flex-shrink: 0;
+        margin-bottom: 10px;
+    }
+    .post-content {
+        flex: 1;
+        text-align: right; /* Aligns the text to the right */
+    }
+    .post-buttons {
+        margin-top: 10px;
+    }
+    .comment {
+        margin-bottom: 20px;
+    }
+</style>

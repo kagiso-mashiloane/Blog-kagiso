@@ -1,0 +1,63 @@
+{% extends 'blog/base.html' %}
+{% load static %}  {# This tag allows the use of the static template tag #}
+
+{% block content %}
+    <style>
+        .post-container {
+            background-image: url("{% static 'images/5.jpg' %}");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .post-title {
+            color: rgba(255, 7, 90, 0.979);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .post-form {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+
+    .submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, rgba(50, 7, 207, 0.9), rgba(53, 219, 192, 0.8));
+    color: #da1818;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 0.8em 1.2em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(223, 5, 5, 0.767);
+}
+
+.submit-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(22, 19, 190, 0.5);
+    background: linear-gradient(135deg, rgb(201, 204, 30), rgba(219, 40, 16, 0.9));
+}
+    </style>
+
+    <div class="post-container">
+        <h1 class="post-title">Create an Article</h1>
+        <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default submit-btn">Submit</button>
+        </form>
+    </div>
+{% endblock %}

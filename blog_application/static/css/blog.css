@@ -1,0 +1,70 @@
+.page-header {
+    background-color: #15008f;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+}
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #17668a;
+    font-size: 36pt;
+    text-decoration: none;
+}
+
+.page-header h2, .page-header h2 a, .page-header h2 a:visited, .page-header h2 a:active {
+    color: #174c9c;
+    font-size: 22pt;
+    text-decoration: none;
+}
+
+.content {
+    margin-left: 40px;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Lalezar', cursive;
+}
+
+.date {
+    color: #0319e2;
+}
+
+.save {
+    float: right;
+}
+
+.post-form textarea, .post-form input {
+    width: 100%;
+}
+
+.top-menu, .top-menu:hover, .top-menu:visited {
+    color: #1a4e705e;
+    float: right;
+    font-size: 26pt;
+    margin-right: 20px;
+}
+
+.post {
+    margin-bottom: 70px;
+}
+
+#paginator
+
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 20px; /* Space between grid items */
+}
+.post-card {
+    border: 1px solid #000000;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #891bbd;
+    text-align: left;
+}
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/*base*/
+

@@ -1,0 +1,56 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+<h1>My Blog Post</h1>
+
+<!-- Background styling -->
+<style>
+    body {
+        background-image: url("{% static 'images/1.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: #d60d0d;
+        font-family: Arial, sans-serif;
+        text-decoration-color: #0dd60d;
+    }
+    .posts-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 20px;
+    }
+    .post-card {
+        background-image: url("{% static 'images/background1.jpg' %}");
+        background-color: rgba(211, 21, 21, 0.7);
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 4px 8px rgba(6, 228, 54, 0.685);
+        transition: transform 0.2s;
+    }
+    .post-card:hover {
+        transform: translateY(-5px);
+    }
+    a {
+        text-decoration: none;
+        color: #ffd700;
+    }
+    a:hover {
+        color: #991111;
+    }
+</style>
+
+{% if user_posts %}
+    <div class="posts-container">
+        {% for post in user_posts %}
+            <div class="post-card">
+                <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.Article_Title }}</a></h2>
+                <p>{{ post.Article_Text|truncatewords:20 }}</p>
+                <small>Published: {{ post.published_date }}</small>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>You have not created any posts yet.</p>
+{% endif %}
+{% endblock %}
