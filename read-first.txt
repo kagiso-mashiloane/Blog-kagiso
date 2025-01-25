@@ -1,0 +1,5 @@
+intsall the following for the project to run 
+
+pip install dj-database-url
+
+python -m pip install Pillow
